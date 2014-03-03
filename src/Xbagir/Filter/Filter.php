@@ -151,6 +151,11 @@ class Filter
         return e($value);
     }
 
+    protected function filterUrlDecode($attribute, $value)
+    {
+        return urldecode($value);
+    }
+    
     protected function parseFilter($filter)
     {
         $parameters = array();
@@ -262,7 +267,7 @@ class Filter
     public function __call($method, $parameters)
     {
         $filter = snake_case(substr($method, 6));
-
+        
         if (isset($this->extensions[$filter]))
         {
             return $this->callExtension($filter, $parameters);
